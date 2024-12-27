@@ -1,0 +1,12 @@
+rootProject.name = 'whenyourcar-chat'
+include 'storage'
+include 'domain'
+include 'presentation'
+include 'storage:redis'
+findProject(':storage:redis')?.name = 'redis'
+include 'storage:mongo'
+findProject(':storage:mongo')?.name = 'mongo'
+include 'websocket'
+include 'storage:redis'
+findProject(':storage:redis')?.name = 'redis'
+

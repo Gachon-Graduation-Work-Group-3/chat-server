@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group = 'whenyourcar.server'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot Starter Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    // Jedis or Lettuce (선택적으로 둘 중 하나 사용)
+    implementation 'redis.clients:jedis:4.3.1' // Redis 클라이언트
+    // Lombok (선택사항)
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation project(':storage:mongo')
+    implementation project(':storage:redis')
+}
+
+test {
+    useJUnitPlatform()
+}
