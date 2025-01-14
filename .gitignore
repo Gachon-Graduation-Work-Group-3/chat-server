@@ -41,4 +41,4 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-websocket/src/main/resources/application.yml
+presentation/src/main/resources/application.yml
