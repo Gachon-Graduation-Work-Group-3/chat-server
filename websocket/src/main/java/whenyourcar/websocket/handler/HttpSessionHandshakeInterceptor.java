@@ -12,11 +12,12 @@ import java.util.Map;
 public class HttpSessionHandshakeInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
-                                   WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+                                   WebSocketHandler wsHandler, Map<String, Object> attributes) {
+
         String roomId = request.getURI().getPath().split("/")[3];  // /ws/chat/{roomId}/{userId}
         String userId = request.getURI().getPath().split("/")[4];
 
-        attributes.put("roomId", Long.parseLong(roomId));
+        attributes.put("roomId", roomId);
         attributes.put("userId", Long.parseLong(userId));
         return true;
     }

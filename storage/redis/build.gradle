@@ -14,8 +14,18 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.session:spring-session-data-redis'
+
+
 }
 
 test {
     useJUnitPlatform()
+}
+
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
 }

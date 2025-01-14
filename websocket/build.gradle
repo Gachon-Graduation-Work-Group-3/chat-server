@@ -22,10 +22,17 @@ dependencies {
     implementation 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    implementation project(':storage:mongo')
+    implementation project(':storage:mysql')
     implementation project(':storage:redis')
 }
 
 test {
     useJUnitPlatform()
+}
+
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
 }

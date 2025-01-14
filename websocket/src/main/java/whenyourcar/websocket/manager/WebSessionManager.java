@@ -1,39 +1,34 @@
 package whenyourcar.websocket.manager;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
+import whenyourcar.redis.enums.RedisPrefixEnum;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
+@RequiredArgsConstructor
 public class WebSessionManager {
-    private static final Map<Long, Map<Long, WebSocketSession>> sessions = new ConcurrentHashMap<>();
+    private static final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
     public void addWebSocketSession(WebSocketSession session,
-                                    Long roomId,
                                     Long userId) {
-        sessions.computeIfAbsent(roomId, key -> new ConcurrentHashMap<>())
-                .put(userId, session);
+        sessions.put(RedisPrefixEnum.GROUP_NAME_PREFIX.getValue(userId), session);
     }
 
-    public void deleteWebSocketSession(Long roomId,
-                                       Long userId) {
-        Map<Long, WebSocketSession> sessionMap = sessions.get(roomId);
-        if (sessionMap != null) {
-            sessionMap.remove(userId);
-            if (sessionMap.isEmpty()) {
-                sessions.remove(roomId);
-            }
-        }
+    public void deleteWebSocketSession(Long userId) {
+        sessions.remove(RedisPrefixEnum.GROUP_NAME_PREFIX.getValue(userId));
     }
 
-    public Map<Long, WebSocketSession> getWebSocketSession(Long roomId) {
-        return sessions.get(roomId);
+    public WebSocketSession getWebSocketSessions(String groupName) {
+        return sessions.get(groupName);
     }
 
-    public Long getSessionAttribute(WebSocketSession session,
+    public Object getSessionAttribute(WebSocketSession session,
                                     String attribute) {
-        return (Long) session.getAttributes().get(attribute);
+        return session.getAttributes().get(attribute);
     }
+
 }
