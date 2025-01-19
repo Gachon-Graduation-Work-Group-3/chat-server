@@ -13,12 +13,12 @@
             <option value="$PROJECT_DIR$/domain/chat" />
             <option value="$PROJECT_DIR$/domain/common" />
             <option value="$PROJECT_DIR$/domain/user" />
+            <option value="$PROJECT_DIR$/domain/websocket" />
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/storage" />
-            <option value="$PROJECT_DIR$/storage/mongo" />
             <option value="$PROJECT_DIR$/storage/mysql" />
+            <option value="$PROJECT_DIR$/storage/rabbitmq" />
             <option value="$PROJECT_DIR$/storage/redis" />
-            <option value="$PROJECT_DIR$/websocket" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -9,11 +9,9 @@ import org.springframework.stereotype.Service;
 import whenyourcar.domain.chat.converter.ChatRoomConverter;
 import whenyourcar.domain.chat.dto.ChatCommonResponse;
 import whenyourcar.domain.chat.service.ChatCommonService;
-import whenyourcar.redis.service.RedisStreamService;
+import whenyourcar.storage.redis.service.RedisStreamService;
 import whenyourcar.storage.mysql.data.entity.Room;
 import whenyourcar.storage.mysql.data.entity.User;
-import whenyourcar.storage.mysql.data.query.SearchRoomsQuery;
-import whenyourcar.storage.mysql.repository.chat.ChatRepository;
 import whenyourcar.storage.mysql.repository.chat.ChatRoomRepository;
 import whenyourcar.storage.mysql.repository.user.UserCommonRepository;
 
@@ -31,10 +29,9 @@ public class ChatCommonServiceImpl implements ChatCommonService {
                 .orElseThrow(()-> new GeneralException(ErrorStatus.USER_IS_NOT_EXIST));
         User user2 = userCommonRepository.findUserById(user2Id)
                 .orElseThrow(()-> new GeneralException(ErrorStatus.USER_IS_NOT_EXIST));
-        Room chatRoom = chatRoomRepository.save(chatRoomConverter.toChatRoom(user1, user2));
 
-        redisStreamService.createConsumerGroup(chatRoom.getId(), user1Id);
-        redisStreamService.createConsumerGroup(chatRoom.getId(), user2Id);
+        redisStreamService.createConsumerGroup(user1Id);
+        redisStreamService.createConsumerGroup(user2Id);
     }
 
     @Override

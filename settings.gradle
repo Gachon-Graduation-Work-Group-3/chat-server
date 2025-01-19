@@ -2,20 +2,24 @@ rootProject.name = 'whenyourcar-chat'
 include 'storage'
 include 'domain'
 include 'presentation'
-include 'storage:redis'
-findProject(':storage:redis')?.name = 'redis'
-include 'websocket'
-include 'storage:redis'
-findProject(':storage:redis')?.name = 'redis'
-include 'presentation'
+
 include 'domain:chat'
 findProject(':domain:chat')?.name = 'chat'
+
 include 'domain:common'
 findProject(':domain:common')?.name = 'common'
+
 include 'domain:user'
 findProject(':domain:user')?.name = 'user'
-include 'domain:user'
-findProject(':domain:user')?.name = 'user'
+
+include 'domain:websocket'
+findProject(':domain:websocket')?.name = 'websocket'
+
 include 'storage:mysql'
 findProject(':storage:mysql')?.name = 'mysql'
+
+include 'storage:redis'
+findProject(':storage:redis')?.name = 'redis'
+include 'storage:rabbitmq'
+findProject(':storage:rabbitmq')?.name = 'rabbitmq'
 

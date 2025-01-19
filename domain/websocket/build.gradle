@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+
+group = 'whenyourcar.server'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation'org.springframework.security:spring-security-messaging'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'org.springframework:spring-websocket'
+    implementation project(':storage:redis')
+    implementation project(':storage:mysql')
+    implementation project(':storage:rabbitmq')
+    implementation project(':domain:user')
+    implementation project(':domain:common')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}

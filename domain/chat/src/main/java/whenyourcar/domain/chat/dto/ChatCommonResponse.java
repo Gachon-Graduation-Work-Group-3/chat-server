@@ -14,6 +14,7 @@ public class ChatCommonResponse {
     public static class ChatRoomResponse{
         private Long roomId;
         private Long user2Id;
+        private String name;
         private String picture;
     }
 

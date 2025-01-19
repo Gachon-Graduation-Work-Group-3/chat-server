@@ -26,6 +26,7 @@ public class ChatRoomConverter {
                         .roomId(room.getRoomId())
                         .user2Id(room.getUser2Id())
                         .picture(room.getPicture())
+                        .name(room.getName())
                         .build())
                 .collect(Collectors.toList());
         return new PageImpl<>(chatRoomResponses, searchRoomsQueries.getPageable(), searchRoomsQueries.getTotalElements());
