@@ -2,17 +2,17 @@ package whenyourcar.presentation.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import whenyourcar.domain.websocket.service.WebSocketCommonService;
-
+import whenyourcar.domain.chat.service.ChatMessageService;
 @Service
 @RequiredArgsConstructor
 public class ChatBrokerFacade {
-    private final WebSocketCommonService webSocketCommonService;
+    private final ChatMessageService chatMessageService;
 
-    public void postMessageToRedisStream(Long roomId,
-                                         Long sender,
-                                         String message) {
-        webSocketCommonService.postMessageToRedisStream(roomId, sender, message);
+    public void sendMessageToQueue(Long roomId,
+                                   Long sender,
+                                   String message) {
+        String chatId = chatMessageService.saveChat(roomId, sender, message);
+        chatMessageService.sendMessageToMessageQueue(roomId, chatId, sender, message);
     }
 
 

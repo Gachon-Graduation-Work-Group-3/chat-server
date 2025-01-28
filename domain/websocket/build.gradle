@@ -19,9 +19,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     implementation 'org.springframework:spring-websocket'
-    implementation project(':storage:redis')
-    implementation project(':storage:mysql')
-    implementation project(':storage:rabbitmq')
+    implementation project(':infra:mysql')
+    implementation project(':infra:rabbitmq')
     implementation project(':domain:user')
     implementation project(':domain:common')
 }

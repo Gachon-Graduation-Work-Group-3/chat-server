@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 public enum SuccessStatus implements BaseCode {
     CHAT_ROOM_CREATE_SUCCESS(HttpStatus.OK, "CHAT2000", "create chat room success"),
     CHAT_SEARCH_ROOM_SUCCESS(HttpStatus.OK, "CHAT2001", "search chat room success"),
+
+    CHAT_SEARCH_MESSAGE_SUCCESS(HttpStatus.OK, "MESSAGE2001", "search chat message success"),
     ;
 
     private final HttpStatus httpStatus;

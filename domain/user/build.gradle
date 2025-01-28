@@ -22,7 +22,7 @@ dependencies {
 
 
     implementation project(':domain:common')
-    implementation project(':storage:mysql')
+    implementation project(':infra:mysql')
 }
 
 test {

@@ -14,6 +14,6 @@ public class ChatBrokerController {
     public void postMessageToRedisStream(@DestinationVariable Long roomId,
                                          @DestinationVariable Long sender,
                                          String message) {
-        chatBrokerFacade.postMessageToRedisStream(roomId, sender, message);
+        chatBrokerFacade.sendMessageToQueue(roomId, sender, message);
     }
 }

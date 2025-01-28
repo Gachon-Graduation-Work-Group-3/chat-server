@@ -1,14 +1,12 @@
 package whenyourcar.presentation.controller;
 
 import code.status.SuccessStatus;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import whenyourcar.domain.chat.dto.ChatCommonResponse;
-import whenyourcar.domain.user.dto.security.SessionUser;
+import whenyourcar.domain.chat.dto.common.ChatCommonResponse;
 import whenyourcar.presentation.apiPayload.ApiResponse;
 import whenyourcar.presentation.facade.ChatCommonFacade;
 

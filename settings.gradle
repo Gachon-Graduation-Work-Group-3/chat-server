@@ -1,6 +1,4 @@
 rootProject.name = 'whenyourcar-chat'
-include 'storage'
-include 'domain'
 include 'presentation'
 
 include 'domain:chat'
@@ -15,11 +13,9 @@ findProject(':domain:user')?.name = 'user'
 include 'domain:websocket'
 findProject(':domain:websocket')?.name = 'websocket'
 
-include 'storage:mysql'
-findProject(':storage:mysql')?.name = 'mysql'
+include 'infra:mysql'
+findProject(':infra:mysql')?.name = 'mysql'
 
-include 'storage:redis'
-findProject(':storage:redis')?.name = 'redis'
-include 'storage:rabbitmq'
-findProject(':storage:rabbitmq')?.name = 'rabbitmq'
+include 'infra:rabbitmq'
+findProject(':infra:rabbitmq')?.name = 'rabbitmq'
 

@@ -3,7 +3,7 @@ package whenyourcar.domain.chat.converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
-import whenyourcar.domain.chat.dto.ChatCommonResponse;
+import whenyourcar.domain.chat.dto.common.ChatCommonResponse;
 import whenyourcar.storage.mysql.data.entity.Room;
 import whenyourcar.storage.mysql.data.entity.User;
 import whenyourcar.storage.mysql.data.query.SearchRoomsQuery;

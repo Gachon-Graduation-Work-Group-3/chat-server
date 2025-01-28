@@ -6,5 +6,7 @@ import whenyourcar.storage.mysql.data.entity.User;
 
 public interface UserCommonService {
     public SessionUser getSessionUser(HttpSession httpSession);
-    public User getUser(HttpSession httpSession);
+    public Long getUserId(HttpSession httpSession);
+
+    public Long verifyUserId(Long userId);
 }

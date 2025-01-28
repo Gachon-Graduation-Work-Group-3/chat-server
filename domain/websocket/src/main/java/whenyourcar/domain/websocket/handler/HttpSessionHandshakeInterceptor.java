@@ -10,8 +10,6 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Component;
 import whenyourcar.domain.user.dto.security.SessionUser;
 import org.springframework.web.socket.WebSocketHandler;
-import whenyourcar.storage.redis.manager.RedisStreamListenerManager;
-import whenyourcar.storage.redis.service.RedisStreamService;
 
 import java.util.Map;
 

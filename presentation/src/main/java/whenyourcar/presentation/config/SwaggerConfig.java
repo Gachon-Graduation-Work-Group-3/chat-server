@@ -23,7 +23,7 @@ public class SwaggerConfig {
 
         Components components = new Components()
                 .addSecuritySchemes(sessionSchemeName, new SecurityScheme()
-                        .name("JSESSIONID")
+                        .name("SESSION")
                         .type(SecurityScheme.Type.APIKEY)
                         .in(SecurityScheme.In.COOKIE));
 

@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -21,7 +22,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정을 SecurityConfig에 추가
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/","/index.html","/v3/api-docs/**", "/swagger-resources/**", "/swagger-ui/**").permitAll()
-                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/error/**").permitAll()
                         .anyRequest().authenticated());
 
         return http.build();

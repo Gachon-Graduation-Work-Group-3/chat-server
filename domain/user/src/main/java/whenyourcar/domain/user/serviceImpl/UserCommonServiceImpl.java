@@ -24,9 +24,17 @@ public class UserCommonServiceImpl implements UserCommonService {
     }
 
     @Override
-    public User getUser(HttpSession httpSession) {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        return userCommonRepository.findUserById(user.getUserId())
+    public Long getUserId(HttpSession httpSession) {
+        SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
+        User user = userCommonRepository.findUserById(sessionUser.getUserId())
                 .orElseThrow(() -> new AuthenticationException(ErrorStatus.USER_IS_NOT_EXIST));
+        return user.getId();
+    }
+
+    @Override
+    public Long verifyUserId(Long userId) {
+        User user = userCommonRepository.findUserById(userId)
+                .orElseThrow(() -> new AuthenticationException(ErrorStatus.USER_IS_NOT_EXIST));
+        return user.getId();
     }
 }
