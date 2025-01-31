@@ -19,7 +19,6 @@ import whenyourcar.storage.mysql.repository.user.UserCommonRepository;
 public class ChatRoomServiceImpl implements ChatRoomService {
     private final UserCommonRepository userCommonRepository;
     private final ChatRoomRepository chatRoomRepository;
-    private final ChatRepository chatRepository;
 
     private final ChatRoomConverter chatRoomConverter;
 

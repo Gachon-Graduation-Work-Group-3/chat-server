@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/whenyourcar
-    username: root
-    password: 0782
+    url: jdbc:mysql://10.0.1.110:3306/whenyourcar
+    username: user
+    password: '@Opyuhepl758'
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -10,12 +10,12 @@ spring:
     show-sql: true
   data:
     redis:
-      host: localhost
+      host: 10.0.1.23
       port: 6379
       topic:
         chatQueue: chatQueue
     rabbitmq:
-      host: localhost
+      host: 10.0.1.23
       port: 5672
       username: guest
       password: guest
@@ -26,6 +26,13 @@ rabbitmq:
     name: "chat.user."
   chat-exchange:
     name: "chat.exchange"
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.messaging: DEBUG
+    org.springframework.web.socket: DEBUG
+    org.springframework.amqp: DEBUG
 
 server:
   port: 8081

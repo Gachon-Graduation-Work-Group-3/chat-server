@@ -1,5 +1,6 @@
 package whenyourcar.presentation.facade;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,8 +18,8 @@ public class ChatCommonFacade {
     private final ChatRoomService chatRoomService;
     private final ChatMessageService chatMessageService;
     private final UserCommonService userCommonService;
-    public void postChatRoom(Long userId, HttpSession httpSession) {
-        Long user1Id = userCommonService.getUserId(httpSession);
+    public void postChatRoom(Long userId, HttpServletRequest request) {
+        Long user1Id = userCommonService.getUserId(request);
         Long user2Id = userCommonService.verifyUserId(userId);
 
         chatMessageService.createMessageQueueForUser(user1Id);
@@ -26,8 +27,8 @@ public class ChatCommonFacade {
     }
 
     public Page<ChatCommonResponse.ChatRoomResponse> getChatRooms(Pageable pageable,
-                                                                  HttpSession httpSession) {
-        Long userId = userCommonService.getUserId(httpSession);
+                                                                  HttpServletRequest request) {
+        Long userId = userCommonService.getUserId(request);
         return chatRoomService.getChatRooms(pageable, userId);
     }
 }

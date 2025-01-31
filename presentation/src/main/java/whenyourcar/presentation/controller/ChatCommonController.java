@@ -1,6 +1,7 @@
 package whenyourcar.presentation.controller;
 
 import code.status.SuccessStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,19 +15,21 @@ import whenyourcar.presentation.facade.ChatCommonFacade;
 @RequiredArgsConstructor
 @RequestMapping("/api/chat")
 public class ChatCommonController {
-    private final HttpSession httpSession;
     private final ChatCommonFacade chatCommonFacade;
     @PostMapping("/")
-    public ApiResponse<Void> postChatRoom(@RequestParam Long user2Id)  {
-        chatCommonFacade.postChatRoom(user2Id, httpSession);
+    public ApiResponse<Void> postChatRoom(
+            HttpServletRequest request,
+            @RequestParam Long user2Id)  {
+        chatCommonFacade.postChatRoom(user2Id, request);
         return ApiResponse.onSuccess(SuccessStatus.CHAT_ROOM_CREATE_SUCCESS, null);
     }
 
     @GetMapping("/")
     public ApiResponse<Page<ChatCommonResponse.ChatRoomResponse>> getChatRooms(
+            HttpServletRequest request,
             @RequestParam Integer page,
             @RequestParam Integer size
     ) {
-        return ApiResponse.onSuccess(SuccessStatus.CHAT_SEARCH_ROOM_SUCCESS, chatCommonFacade.getChatRooms( PageRequest.of(page, size), httpSession));
+        return ApiResponse.onSuccess(SuccessStatus.CHAT_SEARCH_ROOM_SUCCESS, chatCommonFacade.getChatRooms( PageRequest.of(page, size), request));
     }
 }

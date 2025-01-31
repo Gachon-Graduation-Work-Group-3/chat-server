@@ -2,8 +2,10 @@ package whenyourcar.domain.user.serviceImpl;
 
 import code.exception.AuthenticationException;
 import code.status.ErrorStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.stereotype.Service;
 import whenyourcar.domain.user.dto.security.SessionUser;
 import whenyourcar.domain.user.service.UserCommonService;
@@ -14,19 +16,19 @@ import whenyourcar.storage.mysql.repository.user.UserCommonRepository;
 @RequiredArgsConstructor
 public class UserCommonServiceImpl implements UserCommonService {
     private final UserCommonRepository userCommonRepository;
+
     @Override
-    public SessionUser getSessionUser(HttpSession httpSession)  {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        if (user == null) {
-            throw new AuthenticationException(ErrorStatus.USER_IS_NOT_EXIST);
-        }
-        return user;
+    public Long getUserId(HttpServletRequest request) {
+        String email = request.getHeader("X-User-Email");
+        User user = userCommonRepository.findByEmail(email)
+                .orElseThrow(() -> new AuthenticationException(ErrorStatus.USER_IS_NOT_EXIST));
+        return user.getId();
     }
 
     @Override
-    public Long getUserId(HttpSession httpSession) {
-        SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
-        User user = userCommonRepository.findUserById(sessionUser.getUserId())
+    public Long getUserId(ServerHttpRequest request) {
+        String email = request.getHeaders().getFirst("X-User-Email");
+        User user = userCommonRepository.findByEmail(email)
                 .orElseThrow(() -> new AuthenticationException(ErrorStatus.USER_IS_NOT_EXIST));
         return user.getId();
     }

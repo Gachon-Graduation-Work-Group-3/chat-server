@@ -42,3 +42,4 @@ bin/
 .DS_Store
 
 presentation/src/main/resources/application.yml
+presentation/src/main/resources/application-deploy.yml

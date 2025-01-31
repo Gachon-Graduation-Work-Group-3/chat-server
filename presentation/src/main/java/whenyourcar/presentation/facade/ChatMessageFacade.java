@@ -2,6 +2,7 @@ package whenyourcar.presentation.facade;
 
 import code.exception.GeneralException;
 import code.status.ErrorStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -18,10 +19,10 @@ public class ChatMessageFacade {
     private final UserCommonService userCommonService;
     private final ChatRoomService chatRoomService;
     private final ChatMessageService chatMessageService;
-    public ChatMessageResponse.ChatMessageResponseSet getChatMessage(HttpSession httpSession,
+    public ChatMessageResponse.ChatMessageResponseSet getChatMessage(HttpServletRequest request,
                                                                      Long roomId,
                                                                      Pageable pageable) {
-        Long userId = userCommonService.getUserId(httpSession);
+        Long userId = userCommonService.getUserId(request);
         if (chatRoomService.isUserInRoom(roomId, userId)) {
             return chatMessageService.getChat(pageable, roomId, userId);
         }else {

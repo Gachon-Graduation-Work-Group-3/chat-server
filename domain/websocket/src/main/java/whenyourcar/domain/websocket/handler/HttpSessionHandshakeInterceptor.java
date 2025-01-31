@@ -10,21 +10,20 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Component;
 import whenyourcar.domain.user.dto.security.SessionUser;
 import org.springframework.web.socket.WebSocketHandler;
+import whenyourcar.domain.user.service.UserCommonService;
 
 import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class HttpSessionHandshakeInterceptor extends org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor {
-
+    private final UserCommonService userCommonService;
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
                                    WebSocketHandler wsHandler, Map<String, Object> attributes) {
-        HttpSession httpSession = getSession(request);
-        SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
-        Long userId = sessionUser.getUserId();
+        Long userId = userCommonService.getUserId(request);
         attributes.put("userId", userId);
-        System.out.println(sessionUser.getEmail());
+        System.out.println("userId : " + userId);
         return true;
     }
 

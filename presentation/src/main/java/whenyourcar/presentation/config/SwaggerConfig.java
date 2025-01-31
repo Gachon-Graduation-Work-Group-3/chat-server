@@ -17,15 +17,15 @@ public class SwaggerConfig {
                 .description("When Your Car Chat Server 명세서")
                 .version("1.0.0");
 
-        String sessionSchemeName = "Session";
+        String sessionSchemeName = "X-User-Email";
 
         SecurityRequirement securityRequirement = new SecurityRequirement().addList(sessionSchemeName);
 
         Components components = new Components()
                 .addSecuritySchemes(sessionSchemeName, new SecurityScheme()
-                        .name("SESSION")
+                        .name("X-User-Email")
                         .type(SecurityScheme.Type.APIKEY)
-                        .in(SecurityScheme.In.COOKIE));
+                        .in(SecurityScheme.In.HEADER));
 
         return new OpenAPI()
                 .info(info)

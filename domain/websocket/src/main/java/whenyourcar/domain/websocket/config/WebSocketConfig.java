@@ -16,6 +16,9 @@ import org.springframework.security.messaging.access.intercept.AuthorizationChan
 import org.springframework.security.messaging.access.intercept.MessageMatcherDelegatingAuthorizationManager;
 import org.springframework.security.messaging.context.AuthenticationPrincipalArgumentResolver;
 import org.springframework.security.messaging.context.SecurityContextChannelInterceptor;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -30,9 +33,8 @@ import java.util.List;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private final HttpSessionHandshakeInterceptor httpSessionHandshakeInterceptor;
     private final WebSocketHandler webSocketHandler;
-    private final ApplicationContext applicationContext;
 
-    @Bean
+    /*@Bean
     public AuthorizationManager<Message<?>> messageAuthorizationManager() {
         MessageMatcherDelegatingAuthorizationManager.Builder messages =
                 new MessageMatcherDelegatingAuthorizationManager.Builder();
@@ -41,12 +43,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .simpTypeMatchers(SimpMessageType.CONNECT,
                         SimpMessageType.HEARTBEAT,
                         SimpMessageType.UNSUBSCRIBE,
-                        SimpMessageType.DISCONNECT).authenticated()
-                .simpSubscribeDestMatchers("/sub/**").authenticated()
-                .simpMessageDestMatchers("/pub/**").authenticated()
-                .simpSubscribeDestMatchers("/queue/**").authenticated()
-                .simpSubscribeDestMatchers("/exchange/**").authenticated()
-                .simpSubscribeDestMatchers("/topic/**").authenticated()
+                        SimpMessageType.DISCONNECT).permitAll()
+                .simpSubscribeDestMatchers("/sub/**").permitAll()
+                .simpMessageDestMatchers("/pub/**").permitAll()
+                .simpSubscribeDestMatchers("/queue/**").permitAll()
+                .simpSubscribeDestMatchers("/exchange/**").permitAll()
+                .simpSubscribeDestMatchers("/topic/**").permitAll()
                 .anyMessage().denyAll();
 
         return messages.build();
@@ -56,7 +58,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new AuthenticationPrincipalArgumentResolver());
-    }
+    }*/
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -74,10 +76,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
-        AuthorizationChannelInterceptor authz = new AuthorizationChannelInterceptor(messageAuthorizationManager());
-        AuthorizationEventPublisher publisher = new SpringAuthorizationEventPublisher(applicationContext);
-        authz.setAuthorizationEventPublisher(publisher);
-        registration.interceptors(new SecurityContextChannelInterceptor(), authz);
         registration.interceptors(webSocketHandler);
     }
 }

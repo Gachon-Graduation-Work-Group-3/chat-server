@@ -1,6 +1,7 @@
 package whenyourcar.presentation.controller;
 
 import code.status.SuccessStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -16,14 +17,14 @@ import whenyourcar.presentation.facade.ChatMessageFacade;
 @RequiredArgsConstructor
 @RequestMapping("/api/chat/message")
 public class ChatMessageController {
-    private final HttpSession httpSession;
     private final ChatMessageFacade chatMessageFacade;
     @GetMapping("/")
     public ApiResponse<ChatMessageResponse.ChatMessageResponseSet> getChatMessage(
+            HttpServletRequest request,
             @RequestParam Long roomId,
             @RequestParam Integer page,
             @RequestParam Integer size
     ) {
-        return ApiResponse.onSuccess(SuccessStatus.CHAT_SEARCH_MESSAGE_SUCCESS, chatMessageFacade.getChatMessage(httpSession, roomId, PageRequest.of(page, size)));
+        return ApiResponse.onSuccess(SuccessStatus.CHAT_SEARCH_MESSAGE_SUCCESS, chatMessageFacade.getChatMessage(request, roomId, PageRequest.of(page, size)));
     }
 }
