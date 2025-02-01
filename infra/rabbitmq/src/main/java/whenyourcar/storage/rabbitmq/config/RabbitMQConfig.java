@@ -21,6 +21,9 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.chat-exchange.name}")
     private String CHAT_EXCHANGE_NAME;
 
+    @Value("${spring.data.rabbitmq.host}")
+    private String RABBITMQ_HOST;
+
     @Bean
     public TopicExchange chatExchange() {
         return new TopicExchange(CHAT_EXCHANGE_NAME);
@@ -57,7 +60,7 @@ public class RabbitMQConfig {
     @Bean
     public ConnectionFactory rabbitMQConnectionFactory() {
         CachingConnectionFactory factory = new CachingConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost(RABBITMQ_HOST);
         factory.setPort(5672);
         factory.setUsername("guest");
         factory.setPassword("guest");
