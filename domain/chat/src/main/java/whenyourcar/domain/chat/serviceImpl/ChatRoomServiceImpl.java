@@ -35,4 +35,14 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     public boolean isUserInRoom(Long roomId, Long userId) {
         return chatRoomRepository.existsRoomByUserId(roomId, userId);
     }
+
+    @Override
+    public void createChatRoom(Long user1Id, Long user2Id) {
+        User user1 = userCommonRepository.findUserById(user1Id)
+                .orElseThrow(()-> new GeneralException(ErrorStatus.USER_IS_NOT_EXIST));
+        User user2 = userCommonRepository.findUserById(user2Id)
+                .orElseThrow(()-> new GeneralException(ErrorStatus.USER_IS_NOT_EXIST));
+
+        chatRoomRepository.save(chatRoomConverter.toChatRoom(user1, user2));
+    }
 }

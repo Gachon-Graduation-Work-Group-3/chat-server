@@ -22,6 +22,8 @@ public class ChatCommonFacade {
         Long user1Id = userCommonService.getUserId(request);
         Long user2Id = userCommonService.verifyUserId(userId);
 
+        chatRoomService.createChatRoom(user1Id, user2Id);
+
         chatMessageService.createMessageQueueForUser(user1Id);
         chatMessageService.createMessageQueueForUser(user2Id);
     }

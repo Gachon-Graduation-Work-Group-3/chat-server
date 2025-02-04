@@ -1,6 +1,7 @@
 package whenyourcar.domain.websocket.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,10 @@ import java.util.List;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private final HttpSessionHandshakeInterceptor httpSessionHandshakeInterceptor;
     private final WebSocketHandler webSocketHandler;
+
+
+    @Value("${spring.data.rabbitmq.host}")
+    private String RABBITMQ_HOST;
 
     /*@Bean
     public AuthorizationManager<Message<?>> messageAuthorizationManager() {
@@ -70,8 +75,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/pub");
-        registry.enableStompBrokerRelay("/topic", "/queue", "/exchange");
+        registry.setApplicationDestinationPrefixes("/pub")
+                .enableStompBrokerRelay("/topic", "/queue", "/exchange")
+                .setRelayHost(RABBITMQ_HOST)
+                .setVirtualHost("/")
+                .setRelayPort(61613)
+                .setSystemLogin("guest")
+                .setSystemPasscode("guest")
+                .setClientLogin("guest")
+                .setClientPasscode("guest");
     }
 
     @Override
