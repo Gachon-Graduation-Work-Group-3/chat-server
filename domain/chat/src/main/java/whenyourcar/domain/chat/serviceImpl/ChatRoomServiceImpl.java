@@ -43,6 +43,8 @@ public class ChatRoomServiceImpl implements ChatRoomService {
         User user2 = userCommonRepository.findUserById(user2Id)
                 .orElseThrow(()-> new GeneralException(ErrorStatus.USER_IS_NOT_EXIST));
 
-        chatRoomRepository.save(chatRoomConverter.toChatRoom(user1, user2));
+        if(!chatRoomRepository.existsRoomByUsers(user1.getId(), user2.getId())) {
+            chatRoomRepository.save(chatRoomConverter.toChatRoom(user1, user2));
+        }
     }
 }
