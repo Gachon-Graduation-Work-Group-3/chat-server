@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group = 'whenyourcar.chat'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.amqp:spring-rabbit'
+
+    implementation project(':common')
+    implementation project(':domain')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}
