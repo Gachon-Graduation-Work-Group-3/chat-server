@@ -1,3 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group = 'whenyourcar.chat'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+}
+
+
+test {
+    useJUnitPlatform()
+}
 
 bootJar {
     enabled = false
